@@ -25,7 +25,7 @@ public enum LEB128Encoder {
         }
 
 #if DEBUG
-        precondition(buffer.count == count, "Internal error!")
+        precondition(buffer.count == count, "Internal check failed!")
 #endif
 
         return buffer
@@ -53,7 +53,7 @@ public enum LEB128Encoder {
         } while value != 0
 
 #if DEBUG
-        precondition(buffer.count == count, "Internal error!")
+        precondition(buffer.count == count, "Internal check failed!")
 #endif
 
         return buffer

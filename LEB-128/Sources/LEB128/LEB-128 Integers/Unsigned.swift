@@ -3,18 +3,18 @@ public struct Unsigned7BitEncodedInteger: SevenBitEncodedInteger {
 
     public init?<T: BidirectionalCollection>(bytes: T) where T.Element == Byte, T.Index: BinaryInteger {
         guard !bytes.isEmpty else {
-            #if DEBUG
+#if DEBUG
             print("Byte buffer is empty.")
-            #endif
+#endif
             return nil
         }
 
         guard bytes.prefix(upTo: bytes.endIndex - 1).allSatisfy({ $0.isBitSet(at: 7) }),
               !bytes.last!.isBitSet(at: 7)
         else {
-            #if DEBUG
+#if DEBUG
             print("Invalid byte buffer passed into Unsigned7BitEncodedInteger initializer.")
-            #endif
+#endif
             return nil
         }
 
@@ -25,7 +25,18 @@ public struct Unsigned7BitEncodedInteger: SevenBitEncodedInteger {
         self.buffer = LEB128Encoder.encode(integer)
     }
 
-    public var value: UInt {
+    public init?(_ integer: Int) {
+        guard integer >= 0 else {
+#if DEBUG
+            print("Cannot store negative value unsigned.")
+#endif
+            return nil
+        }
+
+        self.init(Int(integer))
+    }
+
+    public var value: UInt? {
         LEB128Decoder.decode(unsigned: self.buffer)
     }
 }

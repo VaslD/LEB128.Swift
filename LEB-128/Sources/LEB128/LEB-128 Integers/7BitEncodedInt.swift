@@ -7,7 +7,7 @@ public protocol SevenBitEncodedInteger:
 {
     var buffer: ContiguousArray<UInt8> { get }
 
-    var value: IntegerLiteralType { get }
+    var value: IntegerLiteralType? { get }
 
     init?<T: BidirectionalCollection>(bytes: T) where T.Element == Byte, T.Index: BinaryInteger
 }
@@ -63,7 +63,11 @@ public extension SevenBitEncodedInteger {
 
 public extension SevenBitEncodedInteger {
     var debugDescription: String {
-        return "\(String(describing: value)) \(String(describing: self))"
+        if let value = self.value {
+            return "\(String(describing: value)) \(String(describing: self))"
+        }
+
+        return String(describing: self)
     }
 }
 

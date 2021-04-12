@@ -1,11 +1,8 @@
 import Foundation
 import LEB128
 
-let five = Unsigned7BitEncodedInteger(5)
-for i in 127 ... UInt16.max {
-    let y = Unsigned7BitEncodedInteger(integerLiteral: UInt(i) - 5)
-    let x = Unsigned7BitEncodedInteger(UInt(i))
-    let sum = x - five
+let s = Signed7BitEncodedInteger(6613)
+let u = Unsigned7BitEncodedInteger(6613)
 
-    assert(sum == y)
-}
+debugPrint(s)
+debugPrint(u)

@@ -25,7 +25,11 @@ public struct Signed7BitEncodedInteger: SevenBitEncodedInteger {
         self.buffer = LEB128Encoder.encode(integer)
     }
 
-    public var value: Int {
+    public init(_ integer: UInt) {
+        self.buffer = LEB128Encoder.encode(integer)
+    }
+
+    public var value: Int? {
         LEB128Decoder.decode(signed: self.buffer)
     }
 }
@@ -53,19 +57,3 @@ extension Signed7BitEncodedInteger: Equatable {
         return true
     }
 }
-
-/*
- // MARK: - Unsigned7BitEncodedInteger + AdditiveArithmetic
-
- extension Unsigned7BitEncodedInteger: AdditiveArithmetic {
-     public static func + (lhs: Unsigned7BitEncodedInteger, rhs: Unsigned7BitEncodedInteger)
-         -> Unsigned7BitEncodedInteger {
-
-     }
-
-     public static func - (lhs: Unsigned7BitEncodedInteger, rhs: Unsigned7BitEncodedInteger)
-     ->        Unsigned7BitEncodedInteger {
-
-     }
- }
- */
