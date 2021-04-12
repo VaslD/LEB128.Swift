@@ -3,12 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		E835FAC62620890D00757B6D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E835FAC52620890D00757B6D /* main.swift */; };
-		E835FAD426208AA400757B6D /* LEB128 in Frameworks */ = {isa = PBXBuildFile; productRef = E835FAD326208AA400757B6D /* LEB128 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,9 +23,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		09E6B739262435EE00E56112 /* LEB128 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = LEB128; sourceTree = "<group>"; };
 		E835FAC22620890D00757B6D /* Demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Demo; sourceTree = BUILT_PRODUCTS_DIR; };
 		E835FAC52620890D00757B6D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		E835FACE2620893D00757B6D /* LEB-128 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "LEB-128"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,7 +33,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E835FAD426208AA400757B6D /* LEB128 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,7 +42,7 @@
 		E835FAB92620890D00757B6D = {
 			isa = PBXGroup;
 			children = (
-				E835FACE2620893D00757B6D /* LEB-128 */,
+				09E6B739262435EE00E56112 /* LEB128 */,
 				E835FAC42620890D00757B6D /* Demo */,
 				E835FAC32620890D00757B6D /* Products */,
 				E835FAD226208AA400757B6D /* Frameworks */,
@@ -91,7 +89,6 @@
 			);
 			name = Demo;
 			packageProductDependencies = (
-				E835FAD326208AA400757B6D /* LEB128 */,
 			);
 			productName = Demo;
 			productReference = E835FAC22620890D00757B6D /* Demo */;
@@ -296,13 +293,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		E835FAD326208AA400757B6D /* LEB128 */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = LEB128;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E835FABA2620890D00757B6D /* Project object */;
 }
