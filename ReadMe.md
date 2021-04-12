@@ -25,3 +25,5 @@ Swift doesn’t have a system framework that deals with LEB128 encoding. *LEB128
 
 Swift `Int` and `UInt` values can be extracted from corresponding types. However, when the stored value exceeds platform limitation, properties returning Swift integers become unavailable and debugging prints raw bytes instead of human-readable decimals.
 
+`Signed7BitEncodedInteger` and `Unsigned7BitEncodedInteger` have not yet supported all arithmetic operations. Conformance to `BinaryInteger` is scheduled on is in the works.
+
