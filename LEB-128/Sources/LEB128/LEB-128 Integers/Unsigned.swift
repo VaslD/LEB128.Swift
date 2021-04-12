@@ -3,18 +3,18 @@ public struct Unsigned7BitEncodedInteger: SevenBitEncodedInteger {
 
     public init?<T: BidirectionalCollection>(bytes: T) where T.Element == Byte, T.Index: BinaryInteger {
         guard !bytes.isEmpty else {
-#if DEBUG
+            #if DEBUG
             print("Byte buffer is empty.")
-#endif
+            #endif
             return nil
         }
 
         guard bytes.prefix(upTo: bytes.endIndex - 1).allSatisfy({ $0.isBitSet(at: 7) }),
               !bytes.last!.isBitSet(at: 7)
         else {
-#if DEBUG
+            #if DEBUG
             print("Invalid byte buffer passed into Unsigned7BitEncodedInteger initializer.")
-#endif
+            #endif
             return nil
         }
 
@@ -132,8 +132,8 @@ extension Unsigned7BitEncodedInteger: AdditiveArithmetic {
     public static func + (lhs: Unsigned7BitEncodedInteger, rhs: Unsigned7BitEncodedInteger)
         -> Unsigned7BitEncodedInteger
     {
-        precondition(!lhs.buffer.isEmpty, "Integer has empty byte buffer.")
-        precondition(!rhs.buffer.isEmpty, "Integer has empty byte buffer.")
+        precondition(!lhs.buffer.isEmpty, "Left-hand side has an empty byte buffer.")
+        precondition(!rhs.buffer.isEmpty, "Right-hand side has an empty byte buffer.")
 
         let length = max(lhs.buffer.count, rhs.buffer.count)
 
@@ -166,6 +166,50 @@ extension Unsigned7BitEncodedInteger: AdditiveArithmetic {
     public static func - (lhs: Unsigned7BitEncodedInteger, rhs: Unsigned7BitEncodedInteger)
         -> Unsigned7BitEncodedInteger
     {
-        fatalError("Not Implemented.")
+        precondition(!lhs.buffer.isEmpty, "Left-hand side has an empty byte buffer.")
+        precondition(!rhs.buffer.isEmpty, "Right-hand side has an empty byte buffer.")
+
+        let length = max(lhs.buffer.count, rhs.buffer.count)
+
+        var buffer = ContiguousArray<Byte>()
+        var borrow = false
+        for index in 0 ..< length {
+            var x = lhs.buffer[safe: index] ?? 0
+            var y = rhs.buffer[safe: index] ?? 0
+            x.clearBit(at: 7)
+            y.clearBit(at: 7)
+
+            var byte: UInt8
+            if x >= y + (borrow ? 1 : 0) {
+                byte = x - y - (borrow ? 1 : 0)
+                borrow = false
+            } else {
+                x.setBit(at: 7)
+                byte = x - y - (borrow ? 1 : 0)
+                borrow = true
+            }
+
+            byte.setBit(at: 7)
+            buffer.append(byte)
+        }
+
+        precondition(!borrow, "Subtraction results in a negative value.")
+
+        var byte = buffer.popLast()
+        byte?.clearBit(at: 7)
+        while byte == 0 {
+            byte = buffer.popLast()
+            byte?.clearBit(at: 7)
+        }
+
+        if let value = byte {
+            buffer.append(value)
+        }
+
+        if buffer.isEmpty {
+            buffer.append(0)
+        }
+
+        return Unsigned7BitEncodedInteger(bytes: buffer)!
     }
 }

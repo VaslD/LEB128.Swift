@@ -63,7 +63,7 @@ public extension SevenBitEncodedInteger {
 
 public extension SevenBitEncodedInteger {
     var debugDescription: String {
-        "\(String(describing: self)) (\(self.buffer.asHexString()))"
+        return "\(String(describing: value)) \(String(describing: self))"
     }
 }
 
