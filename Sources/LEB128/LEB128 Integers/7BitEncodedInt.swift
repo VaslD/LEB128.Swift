@@ -55,7 +55,7 @@ public extension SevenBitEncodedInteger {
             return "(00)"
         }
 
-        return "(\(self.buffer.asHexString()))"
+        return "(\(self.buffer.asHexString(separator: " ")))"
     }
 }
 
