@@ -3,26 +3,26 @@
 import Foundation
 
 public extension LEB128Encoder {
-    static func encodeData<I: SignedInteger>(_ integer: I) -> Data {
+    static func encodeAsData<I: SignedInteger>(_ integer: I) -> Data {
         let buffer: ContiguousArray<Byte> = Self.encode(integer)
         return Data(buffer)
     }
 
-    static func encodeData<I: UnsignedInteger>(_ integer: I) -> Data {
+    static func encodeAsData<I: UnsignedInteger>(_ integer: I) -> Data {
         let buffer: ContiguousArray<Byte> = Self.encode(integer)
         return Data(buffer)
     }
 
-    static func encodeData<I: SignedInteger>(unsigned integer: I) -> Data {
+    static func encodeAsData<I: SignedInteger>(unsigned integer: I) -> Data {
         if integer >= 0 {
-            return Self.encodeData(UInt(integer))
+            return Self.encodeAsData(UInt(integer))
         } else {
-            return Self.encodeData(UInt(abs(integer)))
+            return Self.encodeAsData(UInt(abs(integer)))
         }
     }
 
-    static func encodeData<I: UnsignedInteger>(signed integer: I) -> Data {
-        Self.encodeData(Int(integer))
+    static func encodeAsData<I: UnsignedInteger>(signed integer: I) -> Data {
+        Self.encodeAsData(Int(integer))
     }
 }
 

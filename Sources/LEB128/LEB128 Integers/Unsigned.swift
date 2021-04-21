@@ -33,7 +33,7 @@ public struct Unsigned7BitEncodedInteger: SevenBitEncodedInteger {
             return nil
         }
 
-        self.init(Int(integer))
+        self.init(UInt(integer))
     }
 
     public var value: UInt? {

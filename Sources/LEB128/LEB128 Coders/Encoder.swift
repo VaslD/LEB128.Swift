@@ -4,10 +4,6 @@ public enum LEB128Encoder {
         var buffer = ContiguousArray<Byte>()
 
         var more = true
-#if DEBUG
-        var count = 0
-#endif
-
         while more {
             var byte = Byte(value & 0x7F)
             value = value >> 7
@@ -19,14 +15,7 @@ public enum LEB128Encoder {
             }
 
             buffer.append(byte)
-#if DEBUG
-            count += 1
-#endif
         }
-
-#if DEBUG
-        precondition(buffer.count == count, "Internal check failed!")
-#endif
 
         return buffer
     }
@@ -35,10 +24,6 @@ public enum LEB128Encoder {
         var value = integer
         var buffer = ContiguousArray<Byte>()
 
-#if DEBUG
-        var count = 0
-#endif
-
         repeat {
             var byte = Byte(value & 0x7F)
             value = value >> 7
@@ -46,15 +31,7 @@ public enum LEB128Encoder {
                 byte |= 0x80
             }
             buffer.append(byte)
-
-#if DEBUG
-            count += 1
-#endif
         } while value != 0
-
-#if DEBUG
-        precondition(buffer.count == count, "Internal check failed!")
-#endif
 
         return buffer
     }
